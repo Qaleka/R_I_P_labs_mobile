@@ -1,21 +1,47 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MainScreen from './screens/MainScreen';
-import RecipientsScreen from './screens/RecipientsScreen';
-import { recipients } from './recipients';
+import RecipientsListScreen from './screens/RecipientsListScreen';
+import RecipientInfoScreen from './screens/RecipientInfoScreen';
+import { store } from './store';
 import { Provider } from 'react-redux';
+
+global.Buffer = require('buffer').Buffer;
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
     return (
-      <Provider recipients={recipients}>
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name='Main' component={MainScreen} />
-                <Stack.Screen name='Recipients' component={RecipientsScreen} />
-            </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator screenOptions={{
+                    contentStyle: {
+                        backgroundColor: '#FFFFFF'
+                    }
+                }}>
+                    <Stack.Screen
+                        name='RecipientsList'
+                        component={RecipientsListScreen}
+                        options={{
+                            title: 'Список получателей',
+                            headerStyle: {
+                                backgroundColor: '#212529',
+                            },
+                            headerTintColor: '#c7c8c9',
+                        }}
+                    />
+                    <Stack.Screen
+                        name='RecipientInfo'
+                        component={RecipientInfoScreen}
+                        options={({ route }) => ({
+                            title: route.params.fio || 'Информация о получателе',
+                            headerStyle: {
+                                backgroundColor: '#212529',
+                            },
+                            headerTintColor: '#c7c8c9',
+                        })}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </Provider>
     );
 }

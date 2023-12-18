@@ -1,46 +1,96 @@
-import { View, Text, StyleSheet, Image, Button } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useState, React, useEffect } from 'react';
+import { axiosImage, imagePlaceholder } from '../api'
+import { commonStyles } from '../styles/common'
 
 export default function RecipientCard({ navigation, ...props }) {
+    // const [src, setSrc] = useState({ uri: `${imageBaseURL}/${props.uuid}.jpg` });
+    // const [src, setSrc] = useState(placeholder);
+    const [src, setSrc] = useState(imagePlaceholder);
+
     const handlePress = () => {
-        navigation.navigate('Recipients', { id: props.id });
+        navigation.navigate('RecipientInfo', { uuid: props.uuid, fio: props.fio });
     };
 
+    useEffect(() => {
+        axiosImage.get(`${props.uuid}.jpg`, { responseType: 'arraybuffer' })
+            .then((response) => {
+                const base64 = `data:image/jpeg;base64,${Buffer.from(response.data, 'binary').toString('base64')}`;
+                setSrc({ uri: base64 });
+            })
+            .catch(error => console.log('Error loading image:', error))
+    }, []);
+
     return (
-        <View style={styles.card}>
-            <Image
-                style={styles.image}
-                source={{ uri: `http://192.168.0.104:7000/${props.image}` }}
-                resizeMode='contain'
-            />
-            <View style={styles.container}>
-                <Text style={styles.brandTitle}>{props.brand.title}</Text>
-                <View style={styles.row}>
-                    <Text style={styles.text}>{props.title}</Text>
-                    <Text style={styles.text}>{props.price} р.</Text>
-                </View>
+        <View padding='0' style={[styles.card, commonStyles.rounded, commonStyles.shadow]}>
+            <View style={[styles.imageWrapper, commonStyles.rounded]}>
+                <Image
+                    style={styles.image}
+                    source={src}
+                    // defaultSource={placeholder} // ignored in dev build
+                    onError={() => setSrc(placeholder)}
+                />
             </View>
-            <Button title='Подробнее' onPress={handlePress} />
+            <View style={styles.recipient}>
+                <Text style={[commonStyles.title, commonStyles.centerText]}>{props.fio}</Text>
+                <Text style={[commonStyles.text, commonStyles.centerText]}>Почта: {props.mail}</Text>
+                <Text style={[commonStyles.text, commonStyles.centerText]}>Адрес: {props.adress}</Text>
+                <Text style={[commonStyles.text, commonStyles.centerText]}>Возраст: {props.age}</Text>
+                <Text style={[commonStyles.text, commonStyles.centerText]}>Ширина: {props.width}</Text>
+            </View>
+            {/* <Button title='View details' onPress={handlePress} color='#460ba5' style={styles.border} /> */}
+            {navigation && <TouchableOpacity
+                style={[styles.button, commonStyles.rounded]}
+                onPress={handlePress}
+            >
+                <Text style={{ color: 'white', fontSize: 16 }}>Подробнее</Text>
+            </TouchableOpacity>}
         </View>
     );
+
 }
 
 const styles = StyleSheet.create({
     card: {
         display: 'flex',
         justifyContent: 'flex-start',
-        alignItems: 'center',
+        alignItems: 'stretch',
         flexDirection: 'column',
-        width: 320,
-        backgroundColor: '#303030',
-        borderRadius: 12,
-        padding: 24,
-        gap: 12,
-        margin: 8,
+        backgroundColor: '#ffffff',
+        paddingHorizontal: 0,
+        paddingVertical: 0,
+        overflow: 'hidden',
+        gap: 10,
+        // flexGrow: 1,
     },
-    image: { height: 320, alignSelf: 'stretch' },
-    container: { display: 'flex', width: '100%', margin: 8 },
-    row: { display: 'flex', flexDirection: 'row', justifyContent: 'space-between' },
-    brandTitle: { color: '#4287f5', fontSize: 16 },
-    text: { color: '#f0f0f0', fontSize: 16 },
-});
+    shadow: {
+        shadowColor: '#4133B7',
+        shadowOffset: { width: 0, height: 30 },
+        shadowOpacity: 0.25,
+        shadowRadius: 30,
+        elevation: 10,
+        padding: 10,
+        borderRadius: 10,
+    },
+    image: {
+        flex: 1,
+        width: '100%',
+        resizeMode: 'cover',
+    },
+    imageWrapper: {
+        overflow: 'hidden',
+        aspectRatio: 16 / 9,
+        margin: 0,
+    },
+    recipient: {
+        display: 'flex',
+        width: '100%',
+        paddingHorizontal: 4,
+        gap: 6,
+    },
+    button: {
+        backgroundColor: '#520dc2',
+        padding: 8,
+        alignItems: 'center',
+    },
+})

@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     recipients: [],
-    recipient: {},
+    recipient: undefined,
+    searchText: '',
 };
 
 export const recipientSlice = createSlice({
@@ -11,19 +12,22 @@ export const recipientSlice = createSlice({
     reducers: {
         setRecipients: (state, { payload }) => {
             console.log('setRecipients');
-            state.recipient = payload;
+            state.recipients = payload;
         },
         setRecipient: (state, { payload }) => {
-            console.log('setRecipient');
+            console.log('setRecipient', payload);
             state.recipient = payload;
+        },
+        setSearch: (state, { payload }) => {
+            state.searchText = payload
         },
         resetRecipient: (state) => {
             console.log('resetRecipient');
-            state.recipient = {};
+            state.recipient = undefined;
         },
     },
 });
 
 export const recipientReducer = recipientSlice.reducer;
 
-export const { setRecipients, setRecipient, resetRecipient } = recipientSlice.actions;
+export const { setRecipients, setRecipient, setSearch, resetRecipient } = recipientSlice.actions;
