@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { resetRecipient, setRecipient } from '../store/recipientSlice';
-import { getRecipient, imagePlaceholder, imageBaseURL } from '../api';
+import { getRecipient, imagePlaceholder, imageBaseURL, ReplaceIP } from '../api';
 import { commonStyles } from '../styles/common'
 import Spinner from '../components/Spinner';
 
@@ -10,15 +10,19 @@ export default function RecipientInfoScreen({ navigation, route }) {
     const { uuid } = route.params;
     const dispatch = useDispatch();
     const { recipient } = useSelector((store) => store.recipient);
-    const [src, setSrc] = useState({ uri: `${imageBaseURL}/${uuid}.jpg` });
+    const [src, setSrc] = useState(imagePlaceholder);
 
     // const handlePress = () => {
     //     navigation.navigate('ContainersList');
     // };
 
     useEffect(() => {
-        getRecipient(uuid).then(data => {
+        getRecipient(uuid)
+        .then(data => {
             dispatch(setRecipient(data))
+            if (data.image_url) {
+                setSrc({ uri: ReplaceIP(data.image_url) })
+            }
         })
 
         return () => {

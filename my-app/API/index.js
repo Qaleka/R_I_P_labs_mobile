@@ -18,6 +18,16 @@ export async function getAllRecipients(filter) {
     return axiosAPI.get(url)
         .then(response => response.data)
         .catch(_ => fromMock(filter))
+    }
+
+    export function ReplaceIP(oldURL) {
+        if (!oldURL) {
+            return ''
+        }
+        console.log(oldURL.replace("localhost", ip))
+        let updatedURL = oldURL.replace("localhost", ip);
+        console.log(oldURL, "->", updatedURL, ip)
+        return updatedURL;
 }
 
 function fromMock(filter) {

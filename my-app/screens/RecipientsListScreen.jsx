@@ -40,7 +40,7 @@ export default function RecipientsListScreen({ navigation }) {
                 </TouchableOpacity>
             </View>
             {recipients && recipients.length > 0 ? (
-                recipients.map((recipient) => <RecipientCard key={recipient.uuid} {...{ uuid: recipient.uuid, fio: recipient.fio, email: recipient.email }} style={commonStyles.shadow} navigation={navigation} />)
+                recipients.map((recipient) => <RecipientCard key={recipient.uuid} {...recipient} style={commonStyles.shadow} navigation={navigation} />)
             ) : (
                 !recipients && <Spinner />
             )}
