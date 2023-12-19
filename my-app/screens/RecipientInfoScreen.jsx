@@ -47,7 +47,7 @@ export default function RecipientInfoScreen({ navigation, route }) {
                         </View>
                         <View style={styles.recipient}>
                             <Text style={[commonStyles.title, commonStyles.centerText]}>{recipient.fio}</Text>
-                            <Text style={[commonStyles.text, commonStyles.centerText]}>Почта: {recipient.mail}</Text>
+                            <Text style={[commonStyles.text, commonStyles.centerText]}>Почта: {recipient.email}</Text>
                             <Text style={[commonStyles.text, commonStyles.centerText]}>Адрес: {recipient.adress}</Text>
                             <Text style={[commonStyles.text, commonStyles.centerText]}>Возраст: {recipient.age}</Text>
                         </View>

@@ -33,10 +33,7 @@ export default function RecipientCard({ navigation, ...props }) {
             </View>
             <View style={styles.recipient}>
                 <Text style={[commonStyles.title, commonStyles.centerText]}>{props.fio}</Text>
-                <Text style={[commonStyles.text, commonStyles.centerText]}>Почта: {props.mail}</Text>
-                <Text style={[commonStyles.text, commonStyles.centerText]}>Адрес: {props.adress}</Text>
-                <Text style={[commonStyles.text, commonStyles.centerText]}>Возраст: {props.age}</Text>
-                <Text style={[commonStyles.text, commonStyles.centerText]}>Ширина: {props.width}</Text>
+                <Text style={[commonStyles.text, commonStyles.centerText]}>{props.email}</Text>
             </View>
             {/* <Button title='View details' onPress={handlePress} color='#460ba5' style={styles.border} /> */}
             {navigation && <TouchableOpacity
@@ -89,8 +86,8 @@ const styles = StyleSheet.create({
         gap: 6,
     },
     button: {
-        backgroundColor: '#520dc2',
-        padding: 8,
+        backgroundColor: '#33B2FF',
+        padding: 10,
         alignItems: 'center',
     },
 })

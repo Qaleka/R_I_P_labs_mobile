@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, View, TextInput, TouchableOpacity, Text } from 
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import { getAllRecipients } from '../api';
-import { setRecipient, setSearch } from '../store/recipientSlice';
+import { setRecipients, setSearch } from '../store/recipientSlice';
 import RecipientCard from '../components/RecipientCard';
 import Spinner from '../components/Spinner';
 import { commonStyles } from '../styles/common'
@@ -40,7 +40,7 @@ export default function RecipientsListScreen({ navigation }) {
                 </TouchableOpacity>
             </View>
             {recipients && recipients.length > 0 ? (
-                recipients.map((recipient) => <RecipientCard key={recipient.uuid} {...{ uuid: recipient.uuid, fio: recipient.fio, mail: recipient.mail, adress: recipient.adress, age: recipient.age }} style={commonStyles.shadow} navigation={navigation} />)
+                recipients.map((recipient) => <RecipientCard key={recipient.uuid} {...{ uuid: recipient.uuid, fio: recipient.fio, email: recipient.email }} style={commonStyles.shadow} navigation={navigation} />)
             ) : (
                 !recipients && <Spinner />
             )}
@@ -54,12 +54,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'stretch',
         padding: 10,
-        gap: 10,
+        gap: 100,
         backgroundColor: '#ffffff',
     },
     input: {
         flex: 1,
-        backgroundColor: '#212529',
+        backgroundColor: '#77777B',
         paddingHorizontal: 12,
         paddingVertical: 2,
         marginRight: 8,
@@ -74,13 +74,13 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     button: {
-        backgroundColor: '#520dc2',
+        backgroundColor: '#33B2FF',
         paddingVertical: 6,
-        paddingHorizontal: 8,
+        paddingHorizontal: 10,
     },
     buttonText: {
         color: 'white',
-        fontSize: 14,
+        fontSize: 16,
         // fontWeight: 'bold',
     },
 });

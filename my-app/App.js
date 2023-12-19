@@ -24,7 +24,7 @@ export default function App() {
                         options={{
                             title: 'Список получателей',
                             headerStyle: {
-                                backgroundColor: '#212529',
+                                backgroundColor: '#3600FE',
                             },
                             headerTintColor: '#c7c8c9',
                         }}
@@ -35,7 +35,7 @@ export default function App() {
                         options={({ route }) => ({
                             title: route.params.fio || 'Информация о получателе',
                             headerStyle: {
-                                backgroundColor: '#212529',
+                                backgroundColor: '#3600FE',
                             },
                             headerTintColor: '#c7c8c9',
                         })}

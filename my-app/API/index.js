@@ -24,8 +24,8 @@ function fromMock(filter) {
     let filteredRecipients = Array.from(recipients.values())
     if (filter !== undefined) {
         let fio = filter.toLowerCase()
-        filteredRecipients = filteredContainers.filter(
-            (recipient) => recipient.type.toLowerCase().includes(fio)
+        filteredRecipients = filteredRecipients.filter(
+            (recipient) => recipient.fio.toLowerCase().includes(fio)
         )
     }
     return { draft_notification, recipients: filteredRecipients }

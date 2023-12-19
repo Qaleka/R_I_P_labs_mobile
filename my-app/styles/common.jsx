@@ -9,9 +9,9 @@ export const commonStyles = StyleSheet.create({
     },
 
     shadow: {
-        shadowColor: '#4133B7',
+        shadowColor: '#4087FB',
         shadowOffset: { width: 0, height: 0.5 * 16 },
-        shadowOpacity: 15,
+        shadowOpacity: 20,
         shadowRadius: 1 * 16,
         elevation: 8,
     },
@@ -32,6 +32,6 @@ export const commonStyles = StyleSheet.create({
         fontSize: 16,
     },
     centerText: {
-        textAlign: 'center',
+        textAlign: 'auto',
     }
 });
