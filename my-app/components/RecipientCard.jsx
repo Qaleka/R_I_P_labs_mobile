@@ -16,7 +16,7 @@ export default function RecipientCard({ navigation, ...props }) {
         }
         axiosImage.get(ReplaceIP(props.image_url), { responseType: 'arraybuffer' })
             .then((response) => {
-                const base64 = `data:image/jpeg;base64,${Buffer.from(response.data, 'binary').toString('base64')}`;
+                const base64 = `data:image/jpg;base64,${Buffer.from(response.data, 'binary').toString('base64')}`;
                 setSrc({ uri: base64 });
             })
             .catch(error => console.log('Error loading image:', error))

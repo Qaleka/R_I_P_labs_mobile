@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { resetRecipient, setRecipient } from '../store/recipientSlice';
-import { getRecipient, imagePlaceholder, imageBaseURL, ReplaceIP } from '../api';
+import { getRecipient, imagePlaceholder, ReplaceIP } from '../api';
 import { commonStyles } from '../styles/common'
 import Spinner from '../components/Spinner';
 
