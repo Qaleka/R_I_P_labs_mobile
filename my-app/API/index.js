@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { recipients, draft_notification } from './MockData';
 
-const ip = '111.111.111.44'
+const ip = '192.168.32.13'
 const apiPort = '80'
 const imagesPort = '9000'
 export const imageBaseURL = `http://${ip}:${imagesPort}/images`
@@ -26,8 +26,6 @@ export async function getAllRecipients(filter) {
         }
         console.log(oldURL.replace("localhost", ip))
         let updatedURL = oldURL.replace("localhost", ip);
-        updatedURL = "http://" + updatedURL 
-        console.log(oldURL, "->", updatedURL, ip)
         return updatedURL;
 }
 
